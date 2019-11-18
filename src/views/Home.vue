@@ -34,12 +34,30 @@
         </swiper-slide>
       </swiper>
     </div>
+
+    <!-- 推荐商品 -->
+    <div class="variety">
+      <p>推荐商品</p>
+      <ul>
+        <li
+          class="variety-item"
+          v-for="(item, index) in varietyItem"
+          :key="index"
+        >
+          <img :src="item.img" alt />
+          <p>{{ item.name }}</p>
+          <p>￥{{ item.price }}</p>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
+import axios from "axios";
+import url from "@/service.config.js";
 export default {
   data() {
     return {
@@ -178,12 +196,24 @@ export default {
       ],
       swiperOption: {
         slidesPerView: 3
-      }
+      },
+      varietyItem: []
     };
   },
   components: {
     swiper,
     swiperSlide
+  },
+  created() {
+    // let url1 = "http://aa.com";
+    // let url2 = "http://aa.com/getUser";
+    // let url3 = "http://aa.com/regexp";
+    // let url4 = "http://aa.com/list";
+    // let url4 = "http://aa.com/getVarietyItem";
+    axios.get(url.getVarietyItem).then(res => {
+      console.log(res);
+      this.varietyItem = res.data;
+    });
   }
 };
 </script>

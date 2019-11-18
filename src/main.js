@@ -27,6 +27,7 @@ Vue.use(NavBar)
   .use(Lazyload);
 Vue.config.productionTip = false;
 
+import "@/mock/mock.js";
 new Vue({
   router,
   store,
